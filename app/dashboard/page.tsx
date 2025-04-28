@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -144,6 +144,8 @@ export default function DashboardPage() {
   }
 
   return (
+        <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+    
     <div className="container mx-auto px-4 py-8">
       {/* Demo Banner */}
       <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-md">
@@ -635,5 +637,6 @@ export default function DashboardPage() {
         </TabsContent>
       </Tabs>
     </div>
+    </Suspense>
   )
 }

@@ -1,29 +1,25 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 // Mock calculation data
 const MOCK_CALCULATION = {
-  id: "calc-1",
-  name: "First Home Purchase",
-  calculator_type: "mortgage",
-  created_at: "2023-05-15T10:30:00Z",
+  id: "calc-3",
+  name: "Penalty Calculation",
+  calculator_type: "penalty",
+  created_at: "2023-05-01T10:00:00Z",
   data: {
-    propertyValue: 500000,
-    downPayment: 100000,
-    interestRate: 5.99,
-    amortizationPeriod: 25,
-    paymentFrequency: "monthly",
-    term: 5,
-    monthlyPayment: 2584.59,
-    totalInterest: 375377,
-    totalCost: 775377,
+    penaltyAmount: 5000,
+    loanAmount: 100000,
+    interestRate: 4.5,
+    remainingTerm: 10,
+    earlyTerminationFee: 3.5,
   },
 }
 
-export default function MortgageCalculatorPage() {
+export default function PenaltyCalculatorPage() {
   const searchParams = useSearchParams()
   const calculationId = searchParams.get("id")
   const [calculation, setCalculation] = useState<any>(null)
@@ -48,84 +44,57 @@ export default function MortgageCalculatorPage() {
     fetchCalculation()
   }, [calculationId])
 
+  const renderContent = () => {
+    if (loading) {
+      return <div className="text-center py-8">Loading calculation...</div>
+    }
+
+    if (!calculation) {
+      return <div className="text-center py-8"><p>No calculation found. Please create a new calculation.</p></div>
+    }
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>{calculation.name}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Penalty Amount:</span>
+                <span>${calculation.data.penaltyAmount.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Loan Amount:</span>
+                <span>${calculation.data.loanAmount.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Interest Rate:</span>
+                <span>{calculation.data.interestRate}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Remaining Term:</span>
+                <span>{calculation.data.remainingTerm} years</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Early Termination Fee:</span>
+                <span>{calculation.data.earlyTerminationFee}%</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-6">Mortgage Calculator</h1>
+      <h1 className="text-3xl font-bold mb-6">Penalty Calculator</h1>
 
-      {loading ? (
-        <div className="text-center py-8">Loading calculation...</div>
-      ) : calculation ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>{calculation.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Property Value:</span>
-                  <span>${calculation.data.propertyValue.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Down Payment:</span>
-                  <span>
-                    ${calculation.data.downPayment.toLocaleString()} (
-                    {Math.round((calculation.data.downPayment / calculation.data.propertyValue) * 100)}%)
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Mortgage Amount:</span>
-                  <span>${(calculation.data.propertyValue - calculation.data.downPayment).toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Interest Rate:</span>
-                  <span>{calculation.data.interestRate}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Amortization Period:</span>
-                  <span>{calculation.data.amortizationPeriod} years</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Payment Frequency:</span>
-                  <span>{calculation.data.paymentFrequency}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Payment Summary</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Monthly Payment:</span>
-                  <span className="font-bold">
-                    $
-                    {calculation.data.monthlyPayment.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Total Interest:</span>
-                  <span>${calculation.data.totalInterest.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Total Cost:</span>
-                  <span>${calculation.data.totalCost.toLocaleString()}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      ) : (
-        <div className="text-center py-8">
-          <p>No calculation found. Please create a new calculation.</p>
-        </div>
-      )}
+      <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+        {renderContent()}
+      </Suspense>
     </div>
   )
 }
