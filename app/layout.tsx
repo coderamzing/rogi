@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { PageGuideProvider } from "@/context/page-guide-context"
 import { ChatProvider } from "@/context/chat-context"
 import MainLayout from "@/components/main-layout"
+import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,8 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <ChatProvider>
             <PageGuideProvider>
-              <MainLayout>{children}</MainLayout>
+              <MainLayout>
+            <Suspense>
+                {children}
+              </Suspense>
+                </MainLayout>
             </PageGuideProvider>
+            
           </ChatProvider>
         </ThemeProvider>
       </body>
