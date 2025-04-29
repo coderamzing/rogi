@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import Layout from "@/components/layout"
 import Image from "next/image"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 
 const blogPosts = [
   {
@@ -46,6 +46,7 @@ const blogPosts = [
 export default function BlogPage() {
   const [currentPostIndex, setCurrentPostIndex] = useState(0)
   const router = useRouter()
+  const pathname = usePathname()  // Updated to use usePathname
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,11 +59,12 @@ export default function BlogPage() {
   useEffect(() => {
     // Scroll to top when the component mounts or updates
     window.scrollTo({ top: 0, behavior: "smooth" })
-  }, [router.asPath]) // This will trigger when the route changes
+  }, [pathname]) // This will trigger when the route changes
 
   const currentPost = blogPosts[currentPostIndex]
 
   return (
+    <Suspense>
     <Layout>
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold mb-12">Blog</h1>
@@ -126,5 +128,6 @@ export default function BlogPage() {
         </div>
       </div>
     </Layout>
+    </Suspense>
   )
 }

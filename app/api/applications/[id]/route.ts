@@ -34,18 +34,16 @@ const mockApplications = [
   },
 ]
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  try {
-    const id = params.id
-    const application = mockApplications.find((app) => app.id === id)
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+  const application = mockApplications.find((app) => app.id === id)
 
-    if (!application) {
-      return NextResponse.json({ error: "Application not found" }, { status: 404 })
-    }
-
-    return NextResponse.json({ application })
-  } catch (error) {
-    console.error("Error fetching application:", error)
-    return NextResponse.json({ error: "Failed to fetch application" }, { status: 500 })
+  if (!application) {
+    return NextResponse.json({ error: 'Application not found' }, { status: 404 })
   }
+
+  return NextResponse.json({ application })
 }

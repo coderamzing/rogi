@@ -14,6 +14,9 @@ interface PageGuideContextType {
   setGuideTitle: (title: string) => void
   guideDescription: string
   setGuideDescription: (description: string) => void
+  isNewVisit:String
+  markPageVisited:() => void
+  recommendedPages:String
 }
 
 const PageGuideContext = createContext<PageGuideContextType | undefined>(undefined)
@@ -24,7 +27,9 @@ export function PageGuideProvider({ children }: { children: ReactNode }) {
   const [totalSteps, setTotalSteps] = useState(0)
   const [guideTitle, setGuideTitle] = useState("")
   const [guideDescription, setGuideDescription] = useState("")
-
+  const [isNewVisit,setIsNewVisit]=useState("")
+  const markPageVisited= () => setIsGuideOpen(true)
+  const recommendedPages=""
   const openGuide = () => setIsGuideOpen(true)
   const closeGuide = () => setIsGuideOpen(false)
 
@@ -42,6 +47,9 @@ export function PageGuideProvider({ children }: { children: ReactNode }) {
         setGuideTitle,
         guideDescription,
         setGuideDescription,
+        isNewVisit,
+        markPageVisited,
+        recommendedPages
       }}
     >
       {children}

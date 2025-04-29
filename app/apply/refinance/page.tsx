@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import Layout from "@/components/layout"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -100,6 +100,7 @@ export default function RefinanceApplicationPage() {
   // }, [searchParams, currentStep])
 
   return (
+    <Suspense>
     <Layout>
       <div className="container mx-auto px-4 py-12">
         <div className="mb-8">
@@ -714,5 +715,6 @@ export default function RefinanceApplicationPage() {
         </form>
       </div>
     </Layout>
+    </Suspense>
   )
 }

@@ -73,18 +73,21 @@ export default function CalculatorsPage() {
       description: "Compare different mortgage options",
       icon: <ArrowsLeftRight className="h-6 w-6 text-primary" />,
       link: "/calculators/compare",
+      popular: true
     },
     {
       title: "Required Income",
       description: "Calculate required income for a mortgage",
       icon: <PiggyBank className="h-6 w-6 text-primary" />,
       link: "/calculators/required-income",
+      popular: true
     },
     {
       title: "Debt Service Ratios",
       description: "Calculate your debt service ratios",
       icon: <Scale className="h-6 w-6 text-primary" />,
       link: "/calculators/debt-service",
+      popular: true
     },
   ]
 
@@ -187,7 +190,7 @@ export default function CalculatorsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[...mortgageCalculators, ...taxAndFeesCalculators, ...comparisonCalculators]
-              .filter((calc) => calc.popular)
+              .filter((calc) => calc.popular !== undefined && calc.popular)
               .map((calculator, index) => (
                 <div key={index} className="group relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>

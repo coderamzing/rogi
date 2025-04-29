@@ -85,7 +85,7 @@ console.log(databaseUrl,"databaseurl")
     }
 
     // Get chat history if database is available
-    let chatHistory = []
+    let chatHistory:any = []
     if (sql) {
       try {
         const result = await sql`
@@ -189,7 +189,7 @@ console.log(databaseUrl,"databaseurl")
     }
 
     return NextResponse.json({ response: formattedResponse, messageId: assistantMessageId })
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error in chat API:", error)
     return NextResponse.json(
       {

@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Suspense } from "react"
 
 export default function ComparePage() {
   return (
+    <Suspense>
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Compare Mortgages Side by Side</h1>
       <p className="mb-8">Mortgage comparison tool content goes here.</p>
@@ -15,5 +17,6 @@ export default function ComparePage() {
         </Button>
       </div>
     </div>
+    </Suspense>
   )
 }

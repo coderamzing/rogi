@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: true,
+    missingSuspenseWithCSRBailout: false,
   },
   images: {
     domains: ['localhost', 'vercel.app', 'rogi.vercel.app'],

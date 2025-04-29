@@ -79,6 +79,9 @@ const mockNotifications = [
     message: "Your mortgage application has been received and is being processed.",
     date: "2023-09-18",
     read: false,
+    newMortgageAmount: 600000,
+    downPayment: 130000,
+
   },
   {
     id: "notif-2",
@@ -86,6 +89,10 @@ const mockNotifications = [
     message: "Mortgage rates have decreased. Consider refinancing to save money.",
     date: "2023-09-15",
     read: false,
+    newMortgageAmount: 600000,
+    downPayment: 130000,
+    currentMortgage: 500000,
+
   },
   {
     id: "notif-3",
@@ -93,6 +100,10 @@ const mockNotifications = [
     message: "Please upload your proof of income to complete your application.",
     date: "2023-09-12",
     read: true,
+    newMortgageAmount: 600000,
+    downPayment: 130000,
+    currentMortgage: 500000,
+
   },
 ]
 
@@ -446,14 +457,15 @@ export default function DashboardPage() {
                             {calc.type === "Mortgage" ? "Down Payment" : "Current Mortgage"}
                           </p>
                           <p className="font-medium">
-                            {formatCurrency(calc.type === "Mortgage" ? calc.downPayment : calc.currentMortgage)}
+                          {formatCurrency(calc.type === "Mortgage" ? calc.downPayment ?? 0 : calc.currentMortgage ?? 0)}
                           </p>
                         </div>
 
                         <div className="bg-muted p-3 rounded-md">
                           <p className="text-sm text-muted-foreground">Mortgage Amount</p>
                           <p className="font-medium">
-                            {formatCurrency(calc.type === "Mortgage" ? calc.mortgageAmount : calc.newMortgageAmount)}
+                          {formatCurrency(calc.type === "Mortgage" ? calc.mortgageAmount ?? 0 : calc.newMortgageAmount ?? 0)}
+
                           </p>
                         </div>
                       </div>

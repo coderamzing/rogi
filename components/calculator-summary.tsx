@@ -91,8 +91,8 @@ export default function CalculatorSummary({ calculatorType, calculatorData }: Ca
         Over the full amortization period, you'll pay approximately $${totalInterest.toLocaleString()} in interest.
         
         ${
-          downPaymentPercentage < 20
-            ? "Since your down payment is less than 20%, you'll need mortgage insurance which may increase your costs."
+          parseFloat(downPaymentPercentage) < 20
+                      ? "Since your down payment is less than 20%, you'll need mortgage insurance which may increase your costs."
             : "Your down payment is 20% or more, so you won't need mortgage insurance."
         }
         

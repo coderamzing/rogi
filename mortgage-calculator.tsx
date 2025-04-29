@@ -352,7 +352,7 @@ export default function MortgageCalculator() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="first-time-buyer">First-Time Home Buyer</Label>
-                  <Select value={isFirstTimeBuyer} onValueChange={setIsFirstTimeBuyer}>
+                  <Select value={isFirstTimeBuyer} onValueChange={(value: "yes" | "no") => setIsFirstTimeBuyer(value)}>
                     <SelectTrigger id="first-time-buyer">
                       <SelectValue placeholder="Are you a first-time home buyer?" />
                     </SelectTrigger>

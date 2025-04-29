@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     console.log("Message would be saved:", { id: messageId, sessionId, role: message.role })
 
     return NextResponse.json({ success: true, messageId })
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error saving chat message:", error)
     return NextResponse.json(
       { success: false, error: "Failed to save message", details: error.message },

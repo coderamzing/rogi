@@ -65,10 +65,10 @@ export function getProviders() {
 
 // Mock Session Provider component that simply renders children
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return {children}
 }
 
 // Mock Auth Provider component that simply renders children
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return {children}
 }
