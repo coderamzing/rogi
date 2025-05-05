@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 interface SearchParamsHandlerProps {
   onParamsChange: (params: { [key: string]: string }) => void
@@ -9,20 +9,29 @@ interface SearchParamsHandlerProps {
 
 export function SearchParamsHandler({ onParamsChange }: SearchParamsHandlerProps) {
   const searchParams = useSearchParams()
+  const previousParamsRef = useRef<string>("")
 
   useEffect(() => {
-    if (searchParams) {
-      const paramsObj: { [key: string]: string } = {}
+    // Convert searchParams to a string for comparison
+    const currentParamsString = searchParams.toString()
 
-      if (searchParams.has("propertyValue")) {
-        paramsObj.propertyValue = searchParams.get("propertyValue") || ""
+    // Only process if the params have actually changed
+    if (previousParamsRef.current !== currentParamsString) {
+      const params: { [key: string]: string } = {}
+      let hasChanges = false
+
+      searchParams.forEach((value, key) => {
+        params[key] = value
+        hasChanges = true
+      })
+
+      // Only call the callback if there are actual changes
+      if (hasChanges) {
+        onParamsChange(params)
       }
 
-      if (searchParams.has("downPayment")) {
-        paramsObj.downPayment = searchParams.get("downPayment") || ""
-      }
-
-      onParamsChange(paramsObj)
+      // Update the ref with current params
+      previousParamsRef.current = currentParamsString
     }
   }, [searchParams, onParamsChange])
 

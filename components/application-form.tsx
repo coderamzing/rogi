@@ -236,10 +236,16 @@ export default function ApplicationForm({ calculationData }: ApplicationFormProp
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button type="button" variant="outline" onClick={() => router.back()} disabled={isSubmitting}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => router.back()}
+            disabled={isSubmitting}
+            className="border-primary text-primary hover:bg-primary/10"
+          >
             Back
           </Button>
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90">
             {isSubmitting ? "Submitting..." : "Submit Application"}
           </Button>
         </CardFooter>

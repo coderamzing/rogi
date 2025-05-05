@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -79,9 +79,6 @@ const mockNotifications = [
     message: "Your mortgage application has been received and is being processed.",
     date: "2023-09-18",
     read: false,
-    newMortgageAmount: 600000,
-    downPayment: 130000,
-
   },
   {
     id: "notif-2",
@@ -89,10 +86,6 @@ const mockNotifications = [
     message: "Mortgage rates have decreased. Consider refinancing to save money.",
     date: "2023-09-15",
     read: false,
-    newMortgageAmount: 600000,
-    downPayment: 130000,
-    currentMortgage: 500000,
-
   },
   {
     id: "notif-3",
@@ -100,10 +93,6 @@ const mockNotifications = [
     message: "Please upload your proof of income to complete your application.",
     date: "2023-09-12",
     read: true,
-    newMortgageAmount: 600000,
-    downPayment: 130000,
-    currentMortgage: 500000,
-
   },
 ]
 
@@ -155,8 +144,6 @@ export default function DashboardPage() {
   }
 
   return (
-        <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
-    
     <div className="container mx-auto px-4 py-8">
       {/* Demo Banner */}
       <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-md">
@@ -457,15 +444,14 @@ export default function DashboardPage() {
                             {calc.type === "Mortgage" ? "Down Payment" : "Current Mortgage"}
                           </p>
                           <p className="font-medium">
-                          {formatCurrency(calc.type === "Mortgage" ? calc.downPayment ?? 0 : calc.currentMortgage ?? 0)}
+                            {formatCurrency(calc.type === "Mortgage" ? calc.downPayment : calc.currentMortgage)}
                           </p>
                         </div>
 
                         <div className="bg-muted p-3 rounded-md">
                           <p className="text-sm text-muted-foreground">Mortgage Amount</p>
                           <p className="font-medium">
-                          {formatCurrency(calc.type === "Mortgage" ? calc.mortgageAmount ?? 0 : calc.newMortgageAmount ?? 0)}
-
+                            {formatCurrency(calc.type === "Mortgage" ? calc.mortgageAmount : calc.newMortgageAmount)}
                           </p>
                         </div>
                       </div>
@@ -649,6 +635,5 @@ export default function DashboardPage() {
         </TabsContent>
       </Tabs>
     </div>
-    </Suspense>
   )
 }

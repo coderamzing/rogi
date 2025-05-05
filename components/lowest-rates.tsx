@@ -13,7 +13,7 @@ export function LowestRates() {
   return (
     <section className="py-16 container mx-auto px-4">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4 text-primary">Today's Lowest Mortgage Rates</h2>
+        <h2 className="text-3xl font-gilroy-black mb-4 text-primary">Today's Lowest Mortgage Rates</h2>
         <p className="text-lg max-w-3xl mx-auto text-gray-600">
           Compare the most competitive mortgage rates from Canada's leading lenders. Updated daily.
         </p>

@@ -102,6 +102,8 @@ const bankRates: Rate[] = [
   },
 ]
 
+import { useRouter } from "next/navigation"
+
 export function RatesMarketplace() {
   const [transactionType, setTransactionType] = useState("buying")
   const [purchasePrice, setPurchasePrice] = useState("400000")
@@ -110,6 +112,8 @@ export function RatesMarketplace() {
   const [showDetails, setShowDetails] = useState<{ [key: string]: boolean }>({})
   const [showAllRates, setShowAllRates] = useState(false)
   const [selectedRate, setSelectedRate] = useState<{ rate: number; term: string; type: string } | null>(null)
+
+  const router = useRouter()
 
   const toggleDetails = (term: string) => {
     setShowDetails((prev) => ({ ...prev, [term]: !prev[term] }))
@@ -158,10 +162,7 @@ export function RatesMarketplace() {
                       </ul>
                     )}
                   </div>
-                  <Button
-                    className="mt-2 sm:mt-0"
-                    onClick={() => handleRateSelect(rateData?.rate || 0, rate.term, rateType)}
-                  >
+                  <Button className="mt-2 sm:mt-0" onClick={() => router.push("/apply/pre-approvals")}>
                     inquire
                   </Button>
                 </div>

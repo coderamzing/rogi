@@ -5,8 +5,7 @@ import { getChatMessages, verifyToken } from "@/lib/db"
 export async function GET() {
   try {
     // Get session ID from cookie
-    const cookieStore = await cookies()
-    const chatSessionId = cookieStore.get('chat_session_id')?.value
+    const chatSessionId = cookies().get("chat_session_id")?.value
 
     if (!chatSessionId) {
       return NextResponse.json({ messages: [] })
@@ -14,8 +13,7 @@ export async function GET() {
 
     // Get user ID if authenticated
     let userId: string | undefined
-
-    const authToken = cookieStore.get("auth_token")?.value
+    const authToken = cookies().get("auth_token")?.value
     if (authToken) {
       const decoded = await verifyToken(authToken)
       if (decoded) {

@@ -1,8 +1,8 @@
-import Layout from "@/components/layout"
-import { RatesMarketplace } from "@/components/rates-marketplace"
-import { LowestRates } from "@/components/lowest-rates"
-import PageIntroduction from "@/components/page-introduction"
-import { FAQSection } from "@/components/faq-section"
+import Layout from "@/components/layout";
+import { RatesMarketplace } from "@/components/rates-marketplace";
+import { LowestRates } from "@/components/lowest-rates";
+import PageIntroduction from "@/components/page-introduction";
+import { FAQSection } from "@/components/faq-section";
 
 export default function RatesPage() {
   return (
@@ -18,28 +18,34 @@ export default function RatesPage() {
         </div>
 
         <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Compare Personalized Rates</h2>
+          <h2 className="text-2xl font-bold mb-6">
+            Compare Personalized Rates
+          </h2>
           <div className="bg-white rounded-lg shadow-md p-6">
             <RatesMarketplace />
           </div>
         </div>
 
         <div className="mb-12">
-          <FAQSection
-            
-          />
+          <FAQSection />
         </div>
 
         <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold mb-3">Important Rate Information</h3>
+          <h3 className="text-lg font-semibold mb-3">
+            Important Rate Information
+          </h3>
           <p className="text-sm text-gray-600">
-            Rates shown are subject to change without notice. Rates may vary by province, credit score, and other
-            factors. Not all applicants will qualify for the lowest rate. Actual rates will be determined based on
-            individual circumstances including credit score, income verification, and property valuation.
+            Rates shown are subject to change without notice. Rates may vary by
+            province, credit score, and other factors. Not all applicants will
+            qualify for the lowest rate. Actual rates will be determined based
+            on individual circumstances including credit score, income
+            verification, and property valuation.
           </p>
-          <p className="text-sm text-gray-600 mt-2">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-sm text-gray-600 mt-2">
+            Last updated: {new Date().toLocaleDateString()}
+          </p>
         </div>
       </div>
     </Layout>
-  )
+  );
 }

@@ -112,11 +112,15 @@ export function WelcomeGuide() {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <Button onClick={handleStartTour} className="px-6 w-full sm:w-auto">
+            <Button onClick={handleStartTour} className="px-6 w-full sm:w-auto bg-primary hover:bg-primary/90">
               Take a Tour
               <MapPin className="ml-2 h-4 w-4" />
             </Button>
-            <Button onClick={handleChatWithRogi} variant="outline" className="px-6 w-full sm:w-auto">
+            <Button
+              onClick={handleChatWithRogi}
+              variant="outline"
+              className="px-6 w-full sm:w-auto border-primary text-primary hover:bg-primary/10"
+            >
               Chat with ROGI
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

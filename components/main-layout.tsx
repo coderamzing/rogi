@@ -191,7 +191,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                       <ul className="grid gap-3 p-6 w-[400px]">
                         <li>
                           <div className="grid gap-1">
-                            <h3 className="text-2xl font-semibold">Ready to renew?</h3>
+                            <h3 className="text-2xl font-gilroy-black">Ready to renew?</h3>
                             <p className="text-sm text-muted-foreground mb-4">
                               Get the best rates and terms for your mortgage renewal.
                             </p>
@@ -220,7 +220,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                       <ul className="grid gap-3 p-6 w-[400px]">
                         <li>
                           <div className="grid gap-1">
-                            <h3 className="text-2xl font-semibold">Buying a new home?</h3>
+                            <h3 className="text-2xl font-gilroy-black">Buying a new home?</h3>
                             <p className="text-sm text-muted-foreground mb-4">
                               Get started with your mortgage pre-approval.
                             </p>
@@ -249,7 +249,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                       <ul className="grid gap-3 p-6 w-[400px]">
                         <li>
                           <div className="grid gap-1">
-                            <h3 className="text-2xl font-semibold">Looking to refinance?</h3>
+                            <h3 className="text-2xl font-gilroy-black">Looking to refinance?</h3>
                             <p className="text-sm text-muted-foreground mb-4">
                               Explore your refinancing options and rates.
                             </p>
@@ -275,7 +275,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                       <ul className="grid gap-3 p-6 w-[400px]">
                         <li>
                           <div className="grid gap-1">
-                            <h3 className="text-2xl font-semibold">Current Rates</h3>
+                            <h3 className="text-2xl font-gilroy-black">Current Rates</h3>
                             <p className="text-sm text-muted-foreground mb-4">View our competitive mortgage rates.</p>
                             <Button asChild className="w-fit">
                               <Link href="/rates">See all rates</Link>
@@ -301,7 +301,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                     <NavigationMenuContent>
                       <div className="w-[900px] p-6">
                         <div className="flex justify-between items-center mb-6">
-                          <h3 className="font-medium text-lg">All Calculators</h3>
+                          <h3 className="font-gilroy-black text-lg">All Calculators</h3>
                           <Button asChild>
                             <Link href="/calculators">View Calculator Hub</Link>
                           </Button>
@@ -416,20 +416,20 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
             {/* Company */}
             <div>
-              <h4 className="font-semibold text-primary mb-4">Company</h4>
+              <h4 className="font-gilroy-black text-primary mb-4">Company</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/about-us" className="text-black hover:text-primary">
+                  <Link href="/about-us" className="font-gilroy-ultralight text-black hover:text-primary">
                     About us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="text-black hover:text-primary">
+                  <Link href="/blog" className="font-gilroy-ultralight text-black hover:text-primary">
                     Learn
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-black hover:text-primary">
+                  <Link href="/contact" className="font-gilroy-ultralight text-black hover:text-primary">
                     Contact
                   </Link>
                 </li>
@@ -438,30 +438,30 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
             {/* Services */}
             <div>
-              <h4 className="font-semibold text-primary mb-4">Services</h4>
+              <h4 className="font-gilroy-black text-primary mb-4">Services</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/purchase" className="text-black hover:text-primary">
+                  <Link href="/purchase" className="font-gilroy-ultralight text-black hover:text-primary">
                     Buying a home
                   </Link>
                 </li>
                 <li>
-                  <Link href="/renew" className="text-black hover:text-primary">
+                  <Link href="/renew" className="font-gilroy-ultralight text-black hover:text-primary">
                     Renewal
                   </Link>
                 </li>
                 <li>
-                  <Link href="/refinance" className="text-black hover:text-primary">
+                  <Link href="/refinance" className="font-gilroy-ultralight text-black hover:text-primary">
                     Refinance
                   </Link>
                 </li>
                 <li>
-                  <Link href="/rates" className="text-black hover:text-primary">
+                  <Link href="/rates" className="font-gilroy-ultralight text-black hover:text-primary">
                     Mortgage rates
                   </Link>
                 </li>
                 <li>
-                  <Link href="/calculators/compare" className="text-black hover:text-primary">
+                  <Link href="/calculators/compare" className="font-gilroy-ultralight text-black hover:text-primary">
                     Rate Comparison
                   </Link>
                 </li>
@@ -470,20 +470,20 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
             {/* Legal */}
             <div>
-              <h4 className="font-semibold text-primary mb-4">Legal</h4>
+              <h4 className="font-gilroy-black text-primary mb-4">Legal</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/privacy-policy" className="text-black hover:text-primary">
+                  <Link href="/privacy-policy" className="font-gilroy-ultralight text-black hover:text-primary">
                     Privacy policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms-of-service" className="text-black hover:text-primary">
+                  <Link href="/terms-of-service" className="font-gilroy-ultralight text-black hover:text-primary">
                     Terms & conditions
                   </Link>
                 </li>
                 <li>
-                  <Link href="/mortgage-glossary" className="text-black hover:text-primary">
+                  <Link href="/mortgage-glossary" className="font-gilroy-ultralight text-black hover:text-primary">
                     Mortgage documents
                   </Link>
                 </li>

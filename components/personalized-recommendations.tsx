@@ -85,12 +85,11 @@ export function PersonalizedRecommendations() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">{user ? "Your Personalized Recommendations" : "Popular Mortgage Options"}</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {recommendations.map((rec) => (
           <Card key={rec.id}>
             <CardHeader>
-              <CardTitle>{rec.title}</CardTitle>
+              <CardTitle className="font-black">{rec.title}</CardTitle>
               <CardDescription>{rec.description}</CardDescription>
             </CardHeader>
             <CardContent>

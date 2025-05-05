@@ -29,7 +29,7 @@ const injectGlobalStyles = () => {
         -webkit-backface-visibility: hidden !important;
         perspective: 1000px !important;
         -webkit-perspective: 1000px !important;
-        filter: blur(0) !important;
+      filter: blur(0) !important;
         -webkit-filter: blur(0) !important;
       }
       
@@ -59,9 +59,21 @@ const injectGlobalStyles = () => {
         position: relative;
       }
 
+      @media (max-width: 640px) {
+        .chat-scroll-area {
+          height: calc(100% - 100px);
+        }
+      }
+
       @media (min-height: 768px) {
         .expanded-height {
           height: calc(100vh - 12rem) !important;
+        }
+      }
+
+      @media (max-height: 767px) {
+        .expanded-height {
+          height: calc(100vh - 8rem) !important;
         }
       }
 
@@ -321,7 +333,9 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
           }}
           className={cn(
             "fixed z-50 overflow-hidden chatbot-container",
-            isExpanded ? "inset-4 md:inset-6 lg:inset-8" : "bottom-4 right-4 w-full max-w-md md:max-w-lg h-[740px]",
+            isExpanded
+              ? "inset-2 sm:inset-4 md:inset-6 lg:inset-8"
+              : "bottom-2 right-2 sm:bottom-4 sm:right-4 w-[calc(100%-16px)] sm:w-full sm:max-w-[350px] md:max-w-md lg:max-w-lg h-[600px] sm:h-[650px] md:h-[700px]",
           )}
           onAnimationComplete={() => {
             // Force scroll after animation completes
@@ -329,13 +343,15 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
           }}
         >
           <Card className="flex h-full w-full flex-col overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 rounded-2xl chatbot-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 py-5 px-4 bg-primary/10 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-20">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 py-3 sm:py-5 px-3 sm:px-4 bg-primary/10 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-20">
               <div className="flex items-center gap-2">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary shadow-md">
-                  <Bot className="h-5 w-5 text-white" />
+                <div className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-primary shadow-md">
+                  <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white chatbot-text">ROGI Assistant</h3>
+                  <h3 className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white chatbot-text">
+                    ROGI Assistant
+                  </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 chatbot-text">Your mortgage guide</p>
                 </div>
               </div>
@@ -343,27 +359,31 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 rounded-full hover:bg-primary/10"
+                  className="h-7 w-7 sm:h-8 sm:w-8 rounded-full hover:bg-primary/10"
                   onClick={toggleExpand}
                   aria-label={isExpanded ? "Minimize" : "Maximize"}
                 >
-                  {isExpanded ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                  {isExpanded ? (
+                    <Minimize2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                  ) : (
+                    <Maximize2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                  )}
                 </Button>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 rounded-full hover:bg-primary/10"
+                  className="h-7 w-7 sm:h-8 sm:w-8 rounded-full hover:bg-primary/10"
                   onClick={onClose}
                   aria-label="Close"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-3 w-3 sm:h-4 sm:w-4" />
                 </Button>
               </div>
             </CardHeader>
 
             {/* IMPORTANT: Replaced ScrollArea with a simple div for direct scroll control */}
             <div
-              className={cn("chat-scroll-area", isExpanded && "expanded-height")}
+              className={cn("chat-scroll-area", isExpanded ? "expanded-height" : "h-[calc(100%-130px)]")}
               ref={scrollAreaRef}
               onScroll={handleScroll}
             >
@@ -411,20 +431,20 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
                       >
                         <div
                           className={cn(
-                            "flex max-w-[85%] items-start gap-2 rounded-2xl p-3 chatbot-message",
+                            "flex max-w-[90%] sm:max-w-[85%] items-start gap-1 sm:gap-2 rounded-2xl p-2 sm:p-3 chatbot-message",
                             message.role === "user"
                               ? "bg-primary text-white rounded-tr-none"
                               : "bg-gray-100 text-gray-900 rounded-tl-none dark:bg-gray-800 dark:text-white",
                           )}
                         >
                           {message.role === "assistant" && (
-                            <Avatar className="mt-0.5 h-8 w-8 rounded-full">
+                            <Avatar className="mt-0.5 h-6 w-6 sm:h-8 sm:w-8 rounded-full">
                               <div className="flex h-full w-full items-center justify-center rounded-full bg-primary text-xs font-medium text-white">
-                                <Bot className="h-4 w-4" />
+                                <Bot className="h-3 w-3 sm:h-4 sm:w-4" />
                               </div>
                             </Avatar>
                           )}
-                          <div className="text-sm leading-relaxed chatbot-text">
+                          <div className="text-xs sm:text-sm leading-relaxed chatbot-text">
                             {message.role === "assistant"
                               ? // Professional formatting for assistant messages
                                 cleanedContent
@@ -483,9 +503,9 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
                             )}
                           </div>
                           {message.role === "user" && (
-                            <Avatar className="mt-0.5 h-8 w-8 rounded-full">
+                            <Avatar className="mt-0.5 h-6 w-6 sm:h-8 sm:w-8 rounded-full">
                               <div className="flex h-full w-full items-center justify-center rounded-full bg-white text-xs font-medium text-primary">
-                                <User className="h-4 w-4" />
+                                <User className="h-3 w-3 sm:h-4 sm:w-4" />
                               </div>
                             </Avatar>
                           )}
@@ -531,32 +551,32 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                className="absolute bottom-20 right-4 z-10"
+                className="absolute bottom-16 sm:bottom-20 right-2 sm:right-4 z-10"
               >
                 <Button
                   size="sm"
-                  className="h-10 w-10 rounded-full bg-primary/90 hover:bg-primary shadow-md scroll-indicator"
+                  className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/90 hover:bg-primary shadow-md scroll-indicator"
                   onClick={forceScrollToBottom}
                   aria-label="Scroll to bottom"
                 >
-                  <ChevronDown className="h-5 w-5 text-white" />
+                  <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </Button>
               </motion.div>
             )}
 
-            <CardFooter className="flex flex-col p-6 pt-4 pb-8 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 relative z-10 sticky bottom-0">
+            <CardFooter className="flex flex-col p-3 sm:p-6 pt-2 sm:pt-4 pb-4 sm:pb-8 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 relative z-10 sticky bottom-0">
               {showSuggestions && messages.length <= 2 && (
-                <div className="mb-4 w-full">
-                  <p className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400 chatbot-text">
+                <div className="mb-2 sm:mb-4 w-full">
+                  <p className="mb-1 sm:mb-2 text-xs font-medium text-gray-500 dark:text-gray-400 chatbot-text">
                     Suggested questions:
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     {suggestedQuestions.map((question, index) => (
                       <Button
                         key={index}
                         variant="outline"
                         size="sm"
-                        className="text-xs bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-gray-700 dark:text-gray-300 chatbot-text"
+                        className="text-xs bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-gray-700 dark:text-gray-300 chatbot-text py-1 px-2 h-auto"
                         onClick={() => handleSuggestionClick(question)}
                       >
                         {question}
@@ -565,7 +585,7 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
                   </div>
                 </div>
               )}
-              <form onSubmit={handleSubmit} className="flex w-full gap-2 mt-2 mb-1">
+              <form onSubmit={handleSubmit} className="flex w-full gap-2 mt-1 sm:mt-2 mb-0 sm:mb-1">
                 <div className="relative flex-1">
                   <Input
                     ref={inputRef}
@@ -573,24 +593,24 @@ export function ChatInterface({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     disabled={isLoading}
-                    className="rounded-full border border-gray-200 bg-gray-50 focus-visible:ring-primary pr-10 text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-white h-12 chatbot-text"
+                    className="rounded-full border border-gray-200 bg-gray-50 focus-visible:ring-primary pr-8 sm:pr-10 text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-white h-9 sm:h-12 text-sm chatbot-text"
                   />
                   <Button
                     type="button"
                     size="icon"
                     variant="ghost"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full opacity-70 hover:opacity-100"
+                    className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 h-6 w-6 sm:h-8 sm:w-8 rounded-full opacity-70 hover:opacity-100"
                   >
-                    <Smile className="h-5 w-5" />
+                    <Smile className="h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
                 </div>
                 <Button
                   type="submit"
                   size="icon"
                   disabled={isLoading || !inputValue.trim()}
-                  className="h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-white"
+                  className="h-9 w-9 sm:h-12 sm:w-12 rounded-full bg-primary hover:bg-primary/90 text-white"
                 >
-                  <Send className="h-5 w-5" />
+                  <Send className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </form>
             </CardFooter>

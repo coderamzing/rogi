@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { Suspense, useEffect } from "react"
+import { useEffect } from "react"
 
 export default function SignOut() {
   const router = useRouter()
@@ -11,11 +11,8 @@ export default function SignOut() {
   }, [router])
 
   return (
-    <Suspense >
-      
     <div className="flex min-h-screen items-center justify-center">
       <p>Demo mode: Redirecting to home page...</p>
     </div>
-    </Suspense>
   )
 }

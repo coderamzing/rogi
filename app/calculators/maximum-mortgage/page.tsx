@@ -22,8 +22,8 @@ export default function MaximumMortgagePage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Maximum Mortgage Calculator</h1>
-      <p className="mb-8">Maximum Mortgage Calculator content goes here.</p>
+      <h1 className="text-3xl font-gilroy-black mb-6">Maximum Mortgage Calculator</h1>
+      <p className="mb-8 font-gilroy-black">Maximum Mortgage Calculator content goes here.</p>
 
       {/* Calculator content would go here */}
 

@@ -4,8 +4,8 @@ import Link from "next/link"
 export default function LandTransferPage() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Land Transfer Tax Calculator</h1>
-      <p className="mb-8">Land Transfer Tax Calculator content goes here.</p>
+      <h1 className="text-3xl font-gilroy-black mb-6">Land Transfer Tax Calculator</h1>
+      <p className="mb-8 font-gilroy-black">Land Transfer Tax Calculator content goes here.</p>
 
       {/* Calculator content would go here */}
 

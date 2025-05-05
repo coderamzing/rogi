@@ -105,7 +105,7 @@ export function CalculatorHub({ showAllCalculators = false }: CalculatorHubProps
     <section className="py-16 bg-primary/5">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-primary mb-4">Mortgage Calculators</h2>
+          <h2 className="text-3xl font-gilroy-black text-primary mb-4">Mortgage Calculators</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Our suite of mortgage calculators helps you make informed decisions about your mortgage options.
           </p>
@@ -121,12 +121,16 @@ export function CalculatorHub({ showAllCalculators = false }: CalculatorHubProps
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                   {calculator.icon}
                 </div>
-                <CardTitle className="text-xl">{calculator.title}</CardTitle>
+                <CardTitle className="text-xl font-gilroy-black">{calculator.title}</CardTitle>
                 <CardDescription>{calculator.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">{calculator.text}</p>
-                <Button asChild variant="outline" className="w-full">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full border-primary text-primary hover:bg-primary/10 font-semibold"
+                >
                   <Link href={calculator.link}>Calculate Now</Link>
                 </Button>
               </CardContent>
@@ -139,14 +143,18 @@ export function CalculatorHub({ showAllCalculators = false }: CalculatorHubProps
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-4">
                   <Calculator className="h-6 w-6 text-white" />
                 </div>
-                <CardTitle className="text-xl">View All Calculators</CardTitle>
+                <CardTitle className="text-xl font-gilroy-black">View All Calculators</CardTitle>
                 <CardDescription className="text-white/80">Explore our full suite of tools</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-white/80 mb-4">
                   Access all of our mortgage calculators to help with your mortgage decisions.
                 </p>
-                <Button asChild variant="secondary" className="w-full">
+                <Button
+                  asChild
+                  variant="secondary"
+                  className="w-full bg-white text-primary hover:bg-white/90 font-semibold"
+                >
                   <Link href="/calculators">View All Calculators</Link>
                 </Button>
               </CardContent>

@@ -71,8 +71,14 @@ export async function POST(req: NextRequest) {
     const assistantMessageId = `assistant-${uuidv4()}`
 
     // Get database URL from environment variables
-    const databaseUrl =process.env.NEON_DATABASE_URL
-console.log(databaseUrl,"databaseurl")
+    const databaseUrl =
+      process.env.DATABASE_URL ||
+      process.env.NEON_DATABASE_URL ||
+      process.env.NEON_NEON_DATABASE_URL ||
+      process.env.NEON_NEON_NEON_NEON_DATABASE_URL ||
+      process.env.NEON_NEON_NEON_NEON_NEON_DATABASE_URL ||
+      process.env.NEON_NEON_NEON_NEON_NEON_NEON_DATABASE_URL
+
     // Create SQL client if we have a database URL
     const sql = databaseUrl ? neon(databaseUrl) : null
 
@@ -85,7 +91,7 @@ console.log(databaseUrl,"databaseurl")
     }
 
     // Get chat history if database is available
-    let chatHistory:any = []
+    let chatHistory = []
     if (sql) {
       try {
         const result = await sql`
@@ -189,7 +195,7 @@ console.log(databaseUrl,"databaseurl")
     }
 
     return NextResponse.json({ response: formattedResponse, messageId: assistantMessageId })
-  } catch (error:any) {
+  } catch (error) {
     console.error("Error in chat API:", error)
     return NextResponse.json(
       {

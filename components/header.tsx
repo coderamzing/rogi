@@ -12,14 +12,14 @@ import { cn } from "@/lib/utils"
 
 export const Header = () => {
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm border-b border-primary/10">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-primary">
+            <Link href="/" className="text-xl font-gilroy-black text-primary">
               Rogi
             </Link>
-            <span className="ml-2 text-xs text-accent font-medium bg-secondary px-2 py-1 rounded-full">
+            <span className="ml-2 text-xs text-accent font-gilroy-black bg-secondary px-2 py-1 rounded-full">
               Smart Rates
             </span>
           </div>
@@ -47,7 +47,7 @@ export const Header = () => {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="default" asChild>
+            <Button variant="default" asChild className="bg-primary hover:bg-primary/90 text-white font-semibold">
               <Link href="/dashboard">Demo Dashboard</Link>
             </Button>
           </div>
@@ -59,6 +59,6 @@ export const Header = () => {
 
 const navigationMenuNoHoverStyle = () => {
   return cn(
-    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 hover:text-foreground",
+    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-primary transition-colors focus:bg-secondary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 hover:text-primary hover:bg-secondary",
   )
 }

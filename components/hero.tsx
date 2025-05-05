@@ -63,11 +63,11 @@ export function Hero() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary">ROGI</h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-gilroy-black text-primary">ROGI</h1>
             <Bot className="h-8 w-8 md:h-10 md:w-10 text-primary animate-bounce" />
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-gilroy-black mb-4">
             Canada's First AI-Powered <br />
             <span className="text-accent">
               <TypeAnimation
@@ -131,13 +131,18 @@ export function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 font-semibold">
                 <Link href="/apply">
                   Apply Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10 font-semibold"
+              >
                 <Link href="/calculators">Try Our Calculators</Link>
               </Button>
             </div>
@@ -146,7 +151,7 @@ export function Hero() {
 
         {/* Trust Logos Section */}
         <div className="mt-16 text-center">
-          <h3 className="text-lg font-medium mb-6">Trusted by Canadians. Connected to Canada's Top Lenders.</h3>
+          <h3 className="text-lg font-gilroy-black mb-6">Trusted by Canadians. Connected to Canada's Top Lenders.</h3>
           <div className="flex flex-wrap justify-center items-center gap-8">
             <div className="relative h-10 w-24">
               <Image src="/images/banks/cibc-logo.png" alt="CIBC" fill style={{ objectFit: "contain" }} />

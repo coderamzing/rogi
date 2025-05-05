@@ -2,6 +2,7 @@ import { neon } from "@neondatabase/serverless"
 import { NextResponse } from "next/server"
 
 const sql = neon(process.env.NEON_NEON_DATABASE_URL!)
+
 export async function GET(req: Request) {
   try {
     // Get total sessions

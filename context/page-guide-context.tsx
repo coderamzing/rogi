@@ -1,37 +1,39 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react"
+import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface PageGuideContextType {
-  isGuideOpen: boolean
-  openGuide: () => void
-  closeGuide: () => void
-  currentStep: number
-  setCurrentStep: (step: number) => void
-  totalSteps: number
-  setTotalSteps: (steps: number) => void
-  guideTitle: string
-  setGuideTitle: (title: string) => void
-  guideDescription: string
-  setGuideDescription: (description: string) => void
-  isNewVisit:String
-  markPageVisited:() => void
-  recommendedPages:String
+  isGuideOpen: boolean;
+  openGuide: () => void;
+  closeGuide: () => void;
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
+  totalSteps: number;
+  setTotalSteps: (steps: number) => void;
+  guideTitle: string;
+  setGuideTitle: (title: string) => void;
+  guideDescription: string;
+  setGuideDescription: (description: string) => void;
+  isNewVisit: String;
+  markPageVisited: () => void;
+  recommendedPages: String;
 }
 
-const PageGuideContext = createContext<PageGuideContextType | undefined>(undefined)
+const PageGuideContext = createContext<PageGuideContextType | undefined>(
+  undefined
+);
 
 export function PageGuideProvider({ children }: { children: ReactNode }) {
-  const [isGuideOpen, setIsGuideOpen] = useState(false)
-  const [currentStep, setCurrentStep] = useState(0)
-  const [totalSteps, setTotalSteps] = useState(0)
-  const [guideTitle, setGuideTitle] = useState("")
-  const [guideDescription, setGuideDescription] = useState("")
-  const [isNewVisit,setIsNewVisit]=useState("")
-  const markPageVisited= () => setIsGuideOpen(true)
-  const recommendedPages=""
-  const openGuide = () => setIsGuideOpen(true)
-  const closeGuide = () => setIsGuideOpen(false)
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [totalSteps, setTotalSteps] = useState(0);
+  const [guideTitle, setGuideTitle] = useState("");
+  const [guideDescription, setGuideDescription] = useState("");
+  const [isNewVisit, setIsNewVisit] = useState("");
+  const markPageVisited = () => setIsGuideOpen(true);
+  const recommendedPages = "";
+  const openGuide = () => setIsGuideOpen(true);
+  const closeGuide = () => setIsGuideOpen(false);
 
   return (
     <PageGuideContext.Provider
@@ -49,18 +51,18 @@ export function PageGuideProvider({ children }: { children: ReactNode }) {
         setGuideDescription,
         isNewVisit,
         markPageVisited,
-        recommendedPages
+        recommendedPages,
       }}
     >
       {children}
     </PageGuideContext.Provider>
-  )
+  );
 }
 
 export function usePageGuide() {
-  const context = useContext(PageGuideContext)
+  const context = useContext(PageGuideContext);
   if (context === undefined) {
-    throw new Error("usePageGuide must be used within a PageGuideProvider")
+    throw new Error("usePageGuide must be used within a PageGuideProvider");
   }
-  return context
+  return context;
 }

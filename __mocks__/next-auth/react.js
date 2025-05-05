@@ -1,36 +1,31 @@
-// Mock all next-auth/react functionality to work without providers
-import { mockSession } from "@/lib/auth-stub"
+// Import our mock session hook
+import { useMockSession } from "@/components/mock-session-provider"
 
-export function useSession() {
-  return mockSession
-}
+// Export it as useSession so components importing from next-auth/react will use our mock
+export const useSession = useMockSession
 
-export function signIn() {
-  return Promise.resolve({ ok: true, error: null })
-}
+// Mock session provider that just renders children without making API calls
+export const SessionProvider = ({ children }) => children
 
-export function signOut() {
-  return Promise.resolve(true)
-}
+// Mock authentication functions
+export const signIn = () => Promise.resolve({ ok: true, error: null })
+export const signOut = () => Promise.resolve(true)
+export const getSession = () =>
+  Promise.resolve({
+    user: {
+      id: "demo-user",
+      name: "Demo User",
+      email: "demo@example.com",
+    },
+    expires: "2099-12-31T23:59:59.999Z",
+  })
 
-export function getSession() {
-  return Promise.resolve(mockSession.data)
-}
-
-export function getCsrfToken() {
-  return Promise.resolve("mock-csrf-token")
-}
-
-export function getProviders() {
-  return Promise.resolve({
+export const getCsrfToken = () => Promise.resolve("mock-csrf-token")
+export const getProviders = () =>
+  Promise.resolve({
     google: {
       id: "google",
       name: "Google",
       type: "oauth",
     },
   })
-}
-
-export function SessionProvider({ children }) {
-  return children
-}

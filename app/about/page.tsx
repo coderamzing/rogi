@@ -58,13 +58,13 @@ export default function AboutPage() {
       {/* Main Content */}
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6">About LendGenius</h1>
-          <p className="mb-4">
+          <h1 className="text-3xl font-gilroy-black mb-6">About LendGenius</h1>
+          <p className="mb-4 font-gilroy-ultralight">
             LendGenius is a comprehensive tool designed to help you make informed decisions about your mortgage. Whether
             you're a first-time homebuyer or looking to refinance, our calculators provide you with accurate and
             up-to-date information to guide your choices.
           </p>
-          <p className="mb-4">
+          <p className="mb-4 font-gilroy-ultralight">
             Our team of financial experts and software developers work tirelessly to ensure that LendGenius remains at
             the forefront of mortgage calculation technology, providing you with the most reliable and user-friendly
             experience possible.
@@ -80,75 +80,75 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="font-semibold mb-4">Products</h3>
+              <h3 className="font-gilroy-black mb-4">Products</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/purchase" className="text-sm hover:underline">
+                  <Link href="/purchase" className="text-sm font-gilroy-ultralight hover:underline">
                     Purchase
                   </Link>
                 </li>
                 <li>
-                  <Link href="/refinance" className="text-sm hover:underline">
+                  <Link href="/refinance" className="text-sm font-gilroy-ultralight hover:underline">
                     Refinance
                   </Link>
                 </li>
                 <li>
-                  <Link href="/renew" className="text-sm hover:underline">
+                  <Link href="/renew" className="text-sm font-gilroy-ultralight hover:underline">
                     Renew
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Resources</h3>
+              <h3 className="font-gilroy-black mb-4">Resources</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/calculators" className="text-sm hover:underline">
+                  <Link href="/calculators" className="text-sm font-gilroy-ultralight hover:underline">
                     Calculators
                   </Link>
                 </li>
                 <li>
-                  <Link href="/rates" className="text-sm hover:underline">
+                  <Link href="/rates" className="text-sm font-gilroy-ultralight hover:underline">
                     Rates
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="text-sm hover:underline">
+                  <Link href="/blog" className="text-sm font-gilroy-ultralight hover:underline">
                     Blog
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Company</h3>
+              <h3 className="font-gilroy-black mb-4">Company</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/about" className="text-sm hover:underline">
+                  <Link href="/about" className="text-sm font-gilroy-ultralight hover:underline">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/our-services" className="text-sm hover:underline">
+                  <Link href="/our-services" className="text-sm font-gilroy-ultralight hover:underline">
                     Our Services
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-sm hover:underline">
+                  <Link href="/contact" className="text-sm font-gilroy-ultralight hover:underline">
                     Contact
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
+              <h3 className="font-gilroy-black mb-4">Legal</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/privacy-policy" className="text-sm hover:underline">
+                  <Link href="/privacy-policy" className="text-sm font-gilroy-ultralight hover:underline">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms-of-service" className="text-sm hover:underline">
+                  <Link href="/terms-of-service" className="text-sm font-gilroy-ultralight hover:underline">
                     Terms of Service
                   </Link>
                 </li>
@@ -156,7 +156,9 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-200">
-            <p className="text-sm text-center">© {new Date().getFullYear()} LendGenius. All rights reserved.</p>
+            <p className="text-sm text-center font-gilroy-ultralight">
+              © {new Date().getFullYear()} LendGenius. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>

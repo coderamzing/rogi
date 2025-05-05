@@ -85,7 +85,7 @@ export function ReviewsCarousel() {
   return (
     <section className="py-16 bg-secondary/10">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-primary">What Our Customers Say</h2>
+        <h2 className="text-3xl font-gilroy-black text-center mb-12 text-primary">What Our Customers Say</h2>
 
         <div className="relative">
           <div className="flex justify-between items-center mb-6">
@@ -94,7 +94,7 @@ export function ReviewsCarousel() {
               size="icon"
               onClick={handlePrev}
               disabled={currentIndex === 0}
-              className="rounded-full"
+              className="rounded-full border-primary text-primary hover:bg-secondary hover:text-primary"
             >
               <ChevronLeft className="h-6 w-6" />
               <span className="sr-only">Previous</span>
@@ -105,7 +105,7 @@ export function ReviewsCarousel() {
               size="icon"
               onClick={handleNext}
               disabled={currentIndex >= reviews.length - (isMobile ? 1 : 3)}
-              className="rounded-full"
+              className="rounded-full border-primary text-primary hover:bg-secondary hover:text-primary"
             >
               <ChevronRight className="h-6 w-6" />
               <span className="sr-only">Next</span>
@@ -114,17 +114,20 @@ export function ReviewsCarousel() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {visibleReviews.map((review) => (
-              <div key={review.id} className="bg-white p-6 rounded-lg shadow-md flex flex-col h-full">
+              <div
+                key={review.id}
+                className="bg-white p-6 rounded-lg shadow-md flex flex-col h-full border border-primary/10"
+              >
                 <div className="flex items-center mb-4">
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg">{review.name}</h3>
+                    <h3 className="font-gilroy-black text-lg text-primary">{review.name}</h3>
                     <p className="text-sm text-gray-600">{review.location}</p>
                   </div>
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`h-5 w-5 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                        className={`h-5 w-5 ${i < review.rating ? "text-accent fill-accent" : "text-gray-300"}`}
                       />
                     ))}
                   </div>

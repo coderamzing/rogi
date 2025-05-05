@@ -22,10 +22,10 @@ export function FloatingChatButton() {
       {!isChatOpen && (
         <Button
           onClick={openChat}
-          className="rounded-full h-14 w-14 shadow-lg flex items-center justify-center bg-primary hover:bg-primary/90"
+          className="rounded-full h-12 w-12 md:h-14 md:w-14 shadow-lg flex items-center justify-center bg-primary hover:bg-primary/90"
           aria-label="Open chat assistant"
         >
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />
         </Button>
       )}
 

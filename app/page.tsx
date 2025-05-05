@@ -1,3 +1,5 @@
+"use client"
+
 import { Hero } from "@/components/hero"
 import { ReviewsCarousel } from "@/components/reviews-carousel"
 import { LowestRates } from "@/components/lowest-rates"
@@ -10,6 +12,7 @@ import Image from "next/image"
 import { PersonalizedRecommendations } from "@/components/personalized-recommendations"
 // Import the BankLogos component
 import { BankLogos } from "@/components/bank-logos"
+import { useChat } from "@/context/chat-context"
 
 export default function Home() {
   return (
@@ -28,7 +31,7 @@ export default function Home() {
       {/* How It Works Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-primary">How ROGI Works</h2>
+          <h2 className="text-3xl font-gilroy-black text-center mb-12 text-primary">How ROGI Works</h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-secondary/30 p-8 rounded-lg text-center">
@@ -57,12 +60,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-10">
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-              <Link href="#hero">
-                Try it now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+            <ChatButton />
           </div>
         </div>
       </section>
@@ -70,7 +68,7 @@ export default function Home() {
       {/* Why ROGI Section */}
       <section className="py-16 bg-secondary/20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-6 text-primary">
+          <h2 className="text-3xl font-gilroy-black text-center mb-6 text-primary">
             ROGI Isn't Just Another Mortgage Site.
             <br />
             It's the Future of Mortgages in Canada.
@@ -157,7 +155,7 @@ export default function Home() {
       {/* Who ROGI Is For Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-primary">Who's ROGI For?</h2>
+          <h2 className="text-3xl font-gilroy-black text-center mb-12 text-primary">Who's ROGI For?</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-secondary/30 p-6 rounded-lg text-center">
@@ -207,7 +205,7 @@ export default function Home() {
       <section className="mt-16 bg-white rounded-2xl p-8 md:p-12 border container mx-auto mb-16 md:px-16 lg:px-28">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-4 text-primary">Find Your Best Rate</h2>
+            <h2 className="text-3xl font-gilroy-black mb-4 text-primary">Find Your Best Rate</h2>
             <p className="text-lg mb-6 text-black">
               Ready to take the next step? Visit our Rate Store to compare and find the most competitive mortgage rates
               from Canada's leading lenders. Our rate comparison tool helps you:
@@ -257,7 +255,7 @@ export default function Home() {
       {/* Trusted by Canadians Section */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Trusted By Canadians</h2>
+          <h2 className="text-2xl md:text-3xl font-gilroy-black text-center mb-8">Trusted By Canadians</h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-10">
             We work with all major Canadian financial institutions to find you the best mortgage rates.
           </p>
@@ -267,5 +265,27 @@ export default function Home() {
 
       <FAQSection />
     </>
+  )
+}
+
+// Client component for the chat button
+function ChatButton() {
+  const { openChat, addAssistantMessage } = useChat()
+
+  const handleChatOpen = () => {
+    openChat()
+    // Add a welcome message after a short delay to ensure the chat is open
+    setTimeout(() => {
+      addAssistantMessage(
+        "Hi there! I'm ROGI, your mortgage assistant. How can I help you today? Whether you need information about mortgage rates, the application process, or have any other questions, I'm here to assist!",
+      )
+    }, 100)
+  }
+
+  return (
+    <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={handleChatOpen}>
+      Try it now
+      <ArrowRight className="ml-2 h-5 w-5" />
+    </Button>
   )
 }

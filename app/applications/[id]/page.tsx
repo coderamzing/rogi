@@ -71,24 +71,23 @@ interface Application {
   notes?: string
 }
 
-export default async function ApplicationDetails({ params }: { params:Promise< { slug: string }> }) {
+export default function ApplicationDetails({ params }: { params: { id: string } }) {
   const router = useRouter()
   const [application, setApplication] = useState<Application | null>(null)
   const [isLoadingApplication, setIsLoadingApplication] = useState(true)
 
-  const resolvedParams = await params
   useEffect(() => {
     // In demo mode, we just fetch from our mock data
     const fetchMockApplication = async () => {
       await new Promise((resolve) => setTimeout(resolve, 800)) // Simulate loading
 
-      const app = mockApplications[resolvedParams.slug as keyof typeof mockApplications] || null
+      const app = mockApplications[params.id as keyof typeof mockApplications] || null
       setApplication(app)
       setIsLoadingApplication(false)
     }
 
     fetchMockApplication()
-  }, [resolvedParams.slug])
+  }, [params.id])
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD" }).format(value)

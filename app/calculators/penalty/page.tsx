@@ -1,6 +1,3 @@
-"use client"
-
-import { Suspense } from "react"
 import PenaltyCalculator from "@/components/penalty-calculator"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -8,16 +5,12 @@ import Link from "next/link"
 export default function PenaltyCalculatorPage() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Mortgage Penalty Calculator</h1>
-      <p className="mb-8">
+      <h1 className="text-3xl font-gilroy-black mb-6">Mortgage Penalty Calculator</h1>
+      <p className="mb-8 font-gilroy-black">
         Calculate the potential penalty for breaking your mortgage early. This calculator provides an estimate of what
         you might have to pay if you need to break your mortgage before the term ends.
       </p>
-
-      {/* Wrap PenaltyCalculator with Suspense to handle client-side rendering */}
-      <Suspense fallback={<div>Loading Penalty Calculator...</div>}>
-        <PenaltyCalculator />
-      </Suspense>
+      <PenaltyCalculator />
 
       <div className="mt-8 flex justify-end">
         <Button

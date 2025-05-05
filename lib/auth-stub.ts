@@ -12,10 +12,14 @@ export const mockUser = {
   email: "demo@example.com",
 }
 
-// Mock session data
+// Mock session data for development/demo purposes
 export const mockSession = {
   data: {
-    user: mockUser,
+    user: {
+      id: "demo-user",
+      name: "Demo User",
+      email: "demo@example.com",
+    },
     expires: "2099-12-31T23:59:59.999Z",
   },
   status: "authenticated" as const,
@@ -35,6 +39,11 @@ export function useAuth() {
     logout: () => Promise.resolve(true),
   }
 }
+
+// Mock authentication functions
+export const mockSignIn = () => Promise.resolve({ ok: true, error: null })
+export const mockSignOut = () => Promise.resolve(true)
+export const mockGetSession = () => Promise.resolve(mockSession.data)
 
 // NextAuth function replacements
 export function signIn() {

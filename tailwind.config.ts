@@ -18,6 +18,9 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        gilroy: ["var(--font-gilroy)", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -52,19 +55,38 @@ const config: Config = {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
-        // Add custom purple colors
+        // ROGI Brand Colors - Primary Palette
+        subtle: {
+          purple: "#64557d",
+          DEFAULT: "#64557d",
+        },
+        chrome: {
+          DEFAULT: "#a8a9ad",
+          light: "#edeced",
+        },
+        teal: {
+          DEFAULT: "#10aaaa",
+          light: "#6fcccc",
+          lightest: "#b7e5e5",
+        },
+        // ROGI Brand Colors - Secondary Palette
         purple: {
-          50: "#f5f3ff",
-          100: "#ede9fe",
-          200: "#ddd6fe",
-          300: "#c4b5fd",
-          400: "#a78bfa",
-          500: "#8b5cf6",
-          600: "#7c3aed",
-          700: "#6d28d9",
-          800: "#5b21b6",
-          900: "#4c1d95",
-          950: "#2e1065",
+          DEFAULT: "#64557d", // Same as subtle.purple for convenience
+          light: "#968aa7",
+          lightest: "#afa6bc",
+        },
+        gray: {
+          dark: "#666b70",
+          DEFAULT: "#666b70",
+          charcoal: "#4f5256",
+        },
+        // Charts
+        chart: {
+          1: "var(--chart-1)",
+          2: "var(--chart-2)",
+          3: "var(--chart-3)",
+          4: "var(--chart-4)",
+          5: "var(--chart-5)",
         },
       },
       borderRadius: {

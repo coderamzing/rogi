@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, Suspense } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -24,7 +24,7 @@ const MOCK_CALCULATION = {
   },
 }
 
-function RefinanceCalculatorContent() {
+export default function RefinanceCalculatorPage() {
   const searchParams = useSearchParams()
   const calculationId = searchParams.get("id")
   const [calculation, setCalculation] = useState<any>(null)
@@ -49,111 +49,103 @@ function RefinanceCalculatorContent() {
     fetchCalculation()
   }, [calculationId])
 
-  // Main page content
-  const renderContent = () => {
-    if (loading) {
-      return <div className="text-center py-8">Loading calculation...</div>
-    }
-
-    if (!calculation) {
-      return <div className="text-center py-8"><p>No calculation found. Please create a new calculation.</p></div>
-    }
-
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Current Mortgage</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Current Balance:</span>
-                <span>${calculation.data.currentMortgageBalance.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Current Interest Rate:</span>
-                <span>{calculation.data.currentInterestRate}%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Current Monthly Payment:</span>
-                <span>
-                  ${calculation.data.currentMonthlyPayment.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Remaining Term:</span>
-                <span>{calculation.data.currentRemainingTerm} years</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Refinance Option</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">New Interest Rate:</span>
-                <span>{calculation.data.newInterestRate}%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">New Term:</span>
-                <span>{calculation.data.newTerm} years</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">New Monthly Payment:</span>
-                <span>
-                  ${calculation.data.newMonthlyPayment.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Monthly Savings:</span>
-                <span className="font-bold text-green-600">
-                  ${calculation.data.monthlySavings.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Total Savings:</span>
-                <span className="font-bold text-green-600">
-                  ${calculation.data.totalSavings.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Break-even Point:</span>
-                <span>{calculation.data.breakEvenPoint} months</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
-
-  return renderContent()
-}
-
-export default function RefinanceCalculatorPage() {
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-6">Refinance Calculator</h1>
-      <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
-        <RefinanceCalculatorContent />
-      </Suspense>
+      <h1 className="text-3xl font-gilroy-black mb-6">Refinance Calculator</h1>
+
+      {loading ? (
+        <div className="text-center py-8 font-gilroy-black">Loading calculation...</div>
+      ) : calculation ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Current Mortgage</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Current Balance:</span>
+                  <span>${calculation.data.currentMortgageBalance.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Current Interest Rate:</span>
+                  <span>{calculation.data.currentInterestRate}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Current Monthly Payment:</span>
+                  <span>
+                    $
+                    {calculation.data.currentMonthlyPayment.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Remaining Term:</span>
+                  <span>{calculation.data.currentRemainingTerm} years</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Refinance Option</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">New Interest Rate:</span>
+                  <span>{calculation.data.newInterestRate}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">New Term:</span>
+                  <span>{calculation.data.newTerm} years</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">New Monthly Payment:</span>
+                  <span>
+                    $
+                    {calculation.data.newMonthlyPayment.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Monthly Savings:</span>
+                  <span className="font-bold text-green-600">
+                    $
+                    {calculation.data.monthlySavings.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Total Savings:</span>
+                  <span className="font-bold text-green-600">
+                    $
+                    {calculation.data.totalSavings.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Break-even Point:</span>
+                  <span>{calculation.data.breakEvenPoint} months</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      ) : (
+        <div className="text-center py-8">
+          <p className="font-gilroy-black text-center py-8">No calculation found. Please create a new calculation.</p>
+        </div>
+      )}
     </div>
   )
 }

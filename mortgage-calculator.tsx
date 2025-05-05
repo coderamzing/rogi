@@ -1,13 +1,25 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
-import { Button } from "@/components/ui/button"
+import { useState, useMemo } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,68 +27,88 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-import Link from "next/link"
+} from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
 export default function MortgageCalculator() {
-  const [purchasePrice, setPurchasePrice] = useState(500000)
-  const [downPayment, setDownPayment] = useState(100000)
-  const [downPaymentPercentage, setDownPaymentPercentage] = useState(20)
-  const [mortgageAmount, setMortgageAmount] = useState(400000)
-  const [interestRate, setInterestRate] = useState(5)
-  const [amortizationPeriod, setAmortizationPeriod] = useState(25)
-  const [paymentFrequency, setPaymentFrequency] = useState("monthly")
-  const [isFirstTimeBuyer, setIsFirstTimeBuyer] = useState<"yes" | "no">("no")
-  const [location, setLocation] = useState("")
-  const [aiSummary, setAiSummary] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [annualPropertyTax, setAnnualPropertyTax] = useState(5000)
+  const [purchasePrice, setPurchasePrice] = useState(500000);
+  const [downPayment, setDownPayment] = useState(100000);
+  const [downPaymentPercentage, setDownPaymentPercentage] = useState(20);
+  const [mortgageAmount, setMortgageAmount] = useState(400000);
+  const [interestRate, setInterestRate] = useState(5);
+  const [amortizationPeriod, setAmortizationPeriod] = useState(25);
+  const [paymentFrequency, setPaymentFrequency] = useState("monthly");
+  const [isFirstTimeBuyer, setIsFirstTimeBuyer] = useState<"yes" | "no">("no");
+  const [location, setLocation] = useState("");
+  const [aiSummary, setAiSummary] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [annualPropertyTax, setAnnualPropertyTax] = useState(5000);
 
   const updateDownPayment = (value: number) => {
-    setDownPayment(value)
-    setDownPaymentPercentage((value / purchasePrice) * 100)
-    setMortgageAmount(purchasePrice - value)
-  }
+    setDownPayment(value);
+    setDownPaymentPercentage((value / purchasePrice) * 100);
+    setMortgageAmount(purchasePrice - value);
+  };
 
   const updateDownPaymentPercentage = (value: number) => {
-    setDownPaymentPercentage(value)
-    const newDownPayment = (purchasePrice * value) / 100
-    setDownPayment(newDownPayment)
-    setMortgageAmount(purchasePrice - newDownPayment)
-  }
+    setDownPaymentPercentage(value);
+    const newDownPayment = (purchasePrice * value) / 100;
+    setDownPayment(newDownPayment);
+    setMortgageAmount(purchasePrice - newDownPayment);
+  };
 
   const updatePurchasePrice = (value: number) => {
-    setPurchasePrice(value)
-    const newDownPayment = (value * downPaymentPercentage) / 100
-    setDownPayment(newDownPayment)
-    setMortgageAmount(value - newDownPayment)
-  }
+    setPurchasePrice(value);
+    const newDownPayment = (value * downPaymentPercentage) / 100;
+    setDownPayment(newDownPayment);
+    setMortgageAmount(value - newDownPayment);
+  };
 
-  const calculateMonthlyPayment = (amount: number, rate: number, years: number) => {
-    const monthlyRate = rate / 100 / 12
-    const numberOfPayments = years * 12
+  const calculateMonthlyPayment = (
+    amount: number,
+    rate: number,
+    years: number
+  ) => {
+    const monthlyRate = rate / 100 / 12;
+    const numberOfPayments = years * 12;
     return (
       (amount * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
       (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
-    )
-  }
+    );
+  };
 
-  const calculateTotalInterestPaid = (monthlyPayment: number, years: number, amount: number) => {
-    return monthlyPayment * years * 12 - amount
-  }
+  const calculateTotalInterestPaid = (
+    monthlyPayment: number,
+    years: number,
+    amount: number
+  ) => {
+    return monthlyPayment * years * 12 - amount;
+  };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD" }).format(value)
-  }
+    return new Intl.NumberFormat("en-CA", {
+      style: "currency",
+      currency: "CAD",
+    }).format(value);
+  };
 
   const mortgageCalculations = useMemo(() => {
-    const monthlyPayment = calculateMonthlyPayment(mortgageAmount, interestRate, amortizationPeriod)
-    const totalInterestPaid = calculateTotalInterestPaid(monthlyPayment, amortizationPeriod, mortgageAmount)
-    const interestPaidPerMonth = totalInterestPaid / (amortizationPeriod * 12)
-    const monthlyPropertyTax = annualPropertyTax / 12
-    const totalMonthlyPayment = monthlyPayment + monthlyPropertyTax
-    const totalPaymentOverAmortization = totalMonthlyPayment * amortizationPeriod * 12
-    const totalTaxPaidOverAmortization = annualPropertyTax * amortizationPeriod
+    const monthlyPayment = calculateMonthlyPayment(
+      mortgageAmount,
+      interestRate,
+      amortizationPeriod
+    );
+    const totalInterestPaid = calculateTotalInterestPaid(
+      monthlyPayment,
+      amortizationPeriod,
+      mortgageAmount
+    );
+    const interestPaidPerMonth = totalInterestPaid / (amortizationPeriod * 12);
+    const monthlyPropertyTax = annualPropertyTax / 12;
+    const totalMonthlyPayment = monthlyPayment + monthlyPropertyTax;
+    const totalPaymentOverAmortization =
+      totalMonthlyPayment * amortizationPeriod * 12;
+    const totalTaxPaidOverAmortization = annualPropertyTax * amortizationPeriod;
 
     return {
       monthlyPayment,
@@ -87,8 +119,8 @@ export default function MortgageCalculator() {
       totalMonthlyPayment,
       totalPaymentOverAmortization,
       totalTaxPaidOverAmortization,
-    }
-  }, [mortgageAmount, interestRate, amortizationPeriod, annualPropertyTax])
+    };
+  }, [mortgageAmount, interestRate, amortizationPeriod, annualPropertyTax]);
 
   const gatherFormData = () => {
     return {
@@ -106,12 +138,12 @@ export default function MortgageCalculator() {
         paymentFrequency,
         isFirstTimeBuyer,
       },
-    }
-  }
+    };
+  };
 
   const sendToMakeCom = async () => {
-    const formData = gatherFormData()
-    setIsLoading(true)
+    const formData = gatherFormData();
+    setIsLoading(true);
     try {
       const response = await fetch("YOUR_MAKE_COM_WEBHOOK_URL", {
         method: "POST",
@@ -119,22 +151,26 @@ export default function MortgageCalculator() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-      })
+      });
       if (response.ok) {
-        const data = await response.json()
-        setAiSummary(data.summary)
-        console.log("Data sent successfully to make.com and received AI summary")
+        const data = await response.json();
+        setAiSummary(data.summary);
+        console.log(
+          "Data sent successfully to make.com and received AI summary"
+        );
       } else {
-        console.error("Failed to send data to make.com")
-        setAiSummary("Failed to generate summary. Please try again.")
+        console.error("Failed to send data to make.com");
+        setAiSummary("Failed to generate summary. Please try again.");
       }
     } catch (error) {
-      console.error("Error sending data to make.com:", error)
-      setAiSummary("An error occurred while generating the summary. Please try again.")
+      console.error("Error sending data to make.com:", error);
+      setAiSummary(
+        "An error occurred while generating the summary. Please try again."
+      );
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -157,7 +193,9 @@ export default function MortgageCalculator() {
                           className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                           href="/"
                         >
-                          <div className="mb-2 mt-4 text-lg font-medium">Mortgage Calculator</div>
+                          <div className="mb-2 mt-4 text-lg font-medium">
+                            Mortgage Calculator
+                          </div>
                           <p className="text-sm leading-tight text-muted-foreground">
                             Calculate your mortgage payments and more.
                           </p>
@@ -170,7 +208,9 @@ export default function MortgageCalculator() {
                           className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           href="/refinance-calculator"
                         >
-                          <div className="text-sm font-medium leading-none">Refinance Calculator</div>
+                          <div className="text-sm font-medium leading-none">
+                            Refinance Calculator
+                          </div>
                           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                             See if refinancing makes sense for you.
                           </p>
@@ -182,12 +222,16 @@ export default function MortgageCalculator() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink className="text-sm">About</NavigationMenuLink>
+                  <NavigationMenuLink className="text-sm">
+                    About
+                  </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/contact" legacyBehavior passHref>
-                  <NavigationMenuLink className="text-sm">Contact</NavigationMenuLink>
+                  <NavigationMenuLink className="text-sm">
+                    Contact
+                  </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -207,7 +251,9 @@ export default function MortgageCalculator() {
             <Card>
               <CardHeader>
                 <CardTitle>Property Information</CardTitle>
-                <CardDescription>Enter details about the property you're interested in.</CardDescription>
+                <CardDescription>
+                  Enter details about the property you're interested in.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
@@ -218,7 +264,9 @@ export default function MortgageCalculator() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="ontario">Ontario</SelectItem>
-                      <SelectItem value="british-columbia">British Columbia</SelectItem>
+                      <SelectItem value="british-columbia">
+                        British Columbia
+                      </SelectItem>
                       <SelectItem value="quebec">Quebec</SelectItem>
                       <SelectItem value="alberta">Alberta</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
@@ -231,7 +279,9 @@ export default function MortgageCalculator() {
                     id="purchase-price"
                     type="number"
                     value={purchasePrice}
-                    onChange={(e) => updatePurchasePrice(Number(e.target.value))}
+                    onChange={(e) =>
+                      updatePurchasePrice(Number(e.target.value))
+                    }
                   />
                   <Slider
                     min={100000}
@@ -258,28 +308,38 @@ export default function MortgageCalculator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="down-payment-percentage">Down Payment Percentage</Label>
+                  <Label htmlFor="down-payment-percentage">
+                    Down Payment Percentage
+                  </Label>
                   <Input
                     id="down-payment-percentage"
                     type="number"
                     value={downPaymentPercentage.toFixed(2)}
-                    onChange={(e) => updateDownPaymentPercentage(Number(e.target.value))}
+                    onChange={(e) =>
+                      updateDownPaymentPercentage(Number(e.target.value))
+                    }
                   />
                   <Slider
                     min={0}
                     max={100}
                     step={0.1}
                     value={[downPaymentPercentage]}
-                    onValueChange={(value) => updateDownPaymentPercentage(value[0])}
+                    onValueChange={(value) =>
+                      updateDownPaymentPercentage(value[0])
+                    }
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="annual-property-tax">Annual Property Tax</Label>
+                  <Label htmlFor="annual-property-tax">
+                    Annual Property Tax
+                  </Label>
                   <Input
                     id="annual-property-tax"
                     type="number"
                     value={annualPropertyTax}
-                    onChange={(e) => setAnnualPropertyTax(Number(e.target.value))}
+                    onChange={(e) =>
+                      setAnnualPropertyTax(Number(e.target.value))
+                    }
                   />
                   <Slider
                     min={0}
@@ -296,12 +356,19 @@ export default function MortgageCalculator() {
             <Card>
               <CardHeader>
                 <CardTitle>Mortgage Information</CardTitle>
-                <CardDescription>Enter details about your mortgage terms.</CardDescription>
+                <CardDescription>
+                  Enter details about your mortgage terms.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="mortgage-amount">Mortgage Amount</Label>
-                  <Input id="mortgage-amount" type="number" value={mortgageAmount} readOnly />
+                  <Input
+                    id="mortgage-amount"
+                    type="number"
+                    value={mortgageAmount}
+                    readOnly
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="interest-rate">Interest Rate (%)</Label>
@@ -320,10 +387,14 @@ export default function MortgageCalculator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="amortization-period">Amortization Period (years)</Label>
+                  <Label htmlFor="amortization-period">
+                    Amortization Period (years)
+                  </Label>
                   <Select
                     value={amortizationPeriod.toString()}
-                    onValueChange={(value) => setAmortizationPeriod(Number(value))}
+                    onValueChange={(value) =>
+                      setAmortizationPeriod(Number(value))
+                    }
                   >
                     <SelectTrigger id="amortization-period">
                       <SelectValue placeholder="Select amortization period" />
@@ -339,20 +410,32 @@ export default function MortgageCalculator() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="payment-frequency">Payment Frequency</Label>
-                  <Select value={paymentFrequency} onValueChange={setPaymentFrequency}>
+                  <Select
+                    value={paymentFrequency}
+                    onValueChange={setPaymentFrequency}
+                  >
                     <SelectTrigger id="payment-frequency">
                       <SelectValue placeholder="Select payment frequency" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="monthly">Monthly</SelectItem>
                       <SelectItem value="bi-weekly">Bi-Weekly</SelectItem>
-                      <SelectItem value="accelerated-bi-weekly">Accelerated Bi-Weekly</SelectItem>
+                      <SelectItem value="accelerated-bi-weekly">
+                        Accelerated Bi-Weekly
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="first-time-buyer">First-Time Home Buyer</Label>
-                  <Select value={isFirstTimeBuyer} onValueChange={(value: "yes" | "no") => setIsFirstTimeBuyer(value)}>
+                  <Label htmlFor="first-time-buyer">
+                    First-Time Home Buyer
+                  </Label>
+                  <Select
+                    value={isFirstTimeBuyer}
+                    onValueChange={(value: "yes" | "no") =>
+                      setIsFirstTimeBuyer(value)
+                    }
+                  >
                     <SelectTrigger id="first-time-buyer">
                       <SelectValue placeholder="Are you a first-time home buyer?" />
                     </SelectTrigger>
@@ -369,15 +452,23 @@ export default function MortgageCalculator() {
             <Card>
               <CardHeader>
                 <CardTitle>Payment Summary</CardTitle>
-                <CardDescription>Your mortgage payment details and AI-generated summary.</CardDescription>
+                <CardDescription>
+                  Your mortgage payment details and AI-generated summary.
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button onClick={sendToMakeCom} disabled={isLoading} className="mb-4">
+                <Button
+                  onClick={sendToMakeCom}
+                  disabled={isLoading}
+                  className="mb-4"
+                >
                   {isLoading ? "Generating Summary..." : "Generate AI Summary"}
                 </Button>
                 {aiSummary && (
                   <div className="mt-4 p-4 bg-muted rounded-md">
-                    <h3 className="text-lg font-semibold mb-2">AI-Generated Summary:</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                      AI-Generated Summary:
+                    </h3>
                     <p className="whitespace-pre-wrap">{aiSummary}</p>
                   </div>
                 )}
@@ -388,54 +479,87 @@ export default function MortgageCalculator() {
             <Card>
               <CardHeader>
                 <CardTitle>Amortization Details</CardTitle>
-                <CardDescription>Breakdown of your mortgage payments, interest, and taxes over time.</CardDescription>
+                <CardDescription>
+                  Breakdown of your mortgage payments, interest, and taxes over
+                  time.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <h3 className="text-sm font-medium">Monthly Mortgage Payment</h3>
-                    <p className="text-2xl font-bold">{formatCurrency(mortgageCalculations.monthlyPayment)}</p>
+                    <h3 className="text-sm font-medium">
+                      Monthly Mortgage Payment
+                    </h3>
+                    <p className="text-2xl font-bold">
+                      {formatCurrency(mortgageCalculations.monthlyPayment)}
+                    </p>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium">Monthly Property Tax</h3>
-                    <p className="text-2xl font-bold">{formatCurrency(mortgageCalculations.monthlyPropertyTax)}</p>
+                    <h3 className="text-sm font-medium">
+                      Monthly Property Tax
+                    </h3>
+                    <p className="text-2xl font-bold">
+                      {formatCurrency(mortgageCalculations.monthlyPropertyTax)}
+                    </p>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium">Total Monthly Payment</h3>
-                    <p className="text-2xl font-bold">{formatCurrency(mortgageCalculations.totalMonthlyPayment)}</p>
+                    <h3 className="text-sm font-medium">
+                      Total Monthly Payment
+                    </h3>
+                    <p className="text-2xl font-bold">
+                      {formatCurrency(mortgageCalculations.totalMonthlyPayment)}
+                    </p>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium">Total Interest Paid</h3>
-                    <p className="text-2xl font-bold">{formatCurrency(mortgageCalculations.totalInterestPaid)}</p>
+                    <p className="text-2xl font-bold">
+                      {formatCurrency(mortgageCalculations.totalInterestPaid)}
+                    </p>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium">Payoff Period</h3>
-                    <p className="text-2xl font-bold">{mortgageCalculations.payoffPeriod}</p>
+                    <p className="text-2xl font-bold">
+                      {mortgageCalculations.payoffPeriod}
+                    </p>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium">Interest Paid Per Month</h3>
-                    <p className="text-2xl font-bold">{formatCurrency(mortgageCalculations.interestPaidPerMonth)}</p>
+                    <h3 className="text-sm font-medium">
+                      Interest Paid Per Month
+                    </h3>
+                    <p className="text-2xl font-bold">
+                      {formatCurrency(
+                        mortgageCalculations.interestPaidPerMonth
+                      )}
+                    </p>
                   </div>
                 </div>
                 <div className="mt-6">
-                  <h3 className="text-lg font-semibold mb-2">Mortgage and Tax Summary</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Mortgage and Tax Summary
+                  </h3>
                   <ul className="list-disc list-inside space-y-1">
                     <li>Loan amount: {formatCurrency(mortgageAmount)}</li>
                     <li>Interest rate: {interestRate}%</li>
                     <li>Amortization period: {amortizationPeriod} years</li>
                     <li>Payment frequency: {paymentFrequency}</li>
-                    <li>Annual property tax: {formatCurrency(annualPropertyTax)}</li>
+                    <li>
+                      Annual property tax: {formatCurrency(annualPropertyTax)}
+                    </li>
                     <li>
                       Total interest paid over the life of the loan:{" "}
                       {formatCurrency(mortgageCalculations.totalInterestPaid)}
                     </li>
                     <li>
                       Total property tax paid over the amortization period:{" "}
-                      {formatCurrency(mortgageCalculations.totalTaxPaidOverAmortization)}
+                      {formatCurrency(
+                        mortgageCalculations.totalTaxPaidOverAmortization
+                      )}
                     </li>
                     <li>
                       Total amount paid (principal + interest + tax):{" "}
-                      {formatCurrency(mortgageCalculations.totalPaymentOverAmortization)}
+                      {formatCurrency(
+                        mortgageCalculations.totalPaymentOverAmortization
+                      )}
                     </li>
                   </ul>
                 </div>
@@ -450,5 +574,5 @@ export default function MortgageCalculator() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

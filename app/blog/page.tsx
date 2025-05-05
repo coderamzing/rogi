@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect } from "react"
 import Layout from "@/components/layout"
 import Image from "next/image"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
-import { useRouter, usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 const blogPosts = [
   {
@@ -46,8 +46,7 @@ const blogPosts = [
 export default function BlogPage() {
   const [currentPostIndex, setCurrentPostIndex] = useState(0)
   const router = useRouter()
-  const pathname = usePathname()  // Updated to use usePathname
-
+  const pathname = usePathname()
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPostIndex((prevIndex) => (prevIndex + 1) % blogPosts.length)
@@ -59,15 +58,86 @@ export default function BlogPage() {
   useEffect(() => {
     // Scroll to top when the component mounts or updates
     window.scrollTo({ top: 0, behavior: "smooth" })
-  }, [pathname]) // This will trigger when the route changes
+  }, [pathname])
 
   const currentPost = blogPosts[currentPostIndex]
 
   return (
-    <Suspense>
     <Layout>
-      <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-12">Blog</h1>
+      <div className="container mx-auto px-4 py-8">
+        {/* Modern Hero Section for Blog & Newsletter */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 mb-16">
+          <div className="absolute top-0 right-0 w-1/2 h-full opacity-10">
+            <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-purple-400 blur-3xl"></div>
+            <div className="absolute bottom-10 right-20 w-60 h-60 rounded-full bg-purple-500 blur-3xl"></div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 md:p-12">
+            {/* Left Column - Blog Intro */}
+            <div className="flex flex-col justify-center">
+              <div className="inline-block px-4 py-1.5 mb-4 text-sm font-gilroy-black text-purple-700 bg-purple-100 rounded-full">
+                Latest Insights & Updates
+              </div>
+              <h1 className="text-4xl md:text-5xl font-gilroy-black text-gray-900 mb-4">
+                Mortgage Insights <span className="text-purple-600">Blog</span>
+              </h1>
+              <p className="text-lg font-gilroy-ultralight text-gray-700 mb-6">
+                Expert advice, market trends, and helpful guides to navigate your mortgage journey with confidence.
+              </p>
+
+              {/* Newsletter Signup */}
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-4">
+                <h3 className="text-lg font-gilroy-black text-gray-900 mb-2">Subscribe to our Newsletter</h3>
+                <p className="text-sm font-gilroy-ultralight text-gray-600 mb-4">
+                  Get the latest mortgage tips and advice delivered to your inbox.
+                </p>
+                <form className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    className="flex-grow px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="px-5 py-2 bg-purple-600 text-white font-gilroy-black rounded-lg hover:bg-purple-700 transition-colors"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            {/* Right Column - Decorative Elements */}
+            <div className="relative hidden lg:flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-64 h-64 bg-purple-200 rounded-full blur-3xl opacity-30"></div>
+              </div>
+              <div className="relative grid grid-cols-2 gap-4 transform rotate-6">
+                <div className="bg-white p-4 rounded-xl shadow-lg transform -rotate-3 scale-90">
+                  <div className="w-full h-32 bg-gray-200 rounded-lg mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                </div>
+                <div className="bg-white p-4 rounded-xl shadow-lg transform rotate-3 translate-y-8">
+                  <div className="w-full h-32 bg-gray-200 rounded-lg mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                </div>
+                <div className="bg-white p-4 rounded-xl shadow-lg transform -rotate-6 translate-y-4">
+                  <div className="w-full h-32 bg-gray-200 rounded-lg mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                </div>
+                <div className="bg-white p-4 rounded-xl shadow-lg transform rotate-6 -translate-y-4">
+                  <div className="w-full h-32 bg-gray-200 rounded-lg mb-3"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="mb-12">
           <Link href={`/blog/${currentPost.slug}?image=${encodeURIComponent(currentPost.image)}`}>
@@ -128,6 +198,5 @@ export default function BlogPage() {
         </div>
       </div>
     </Layout>
-    </Suspense>
   )
 }
